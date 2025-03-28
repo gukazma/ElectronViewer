@@ -5,3 +5,7 @@ contextBridge.exposeInMainWorld('versions', {
     electron:()=>process.versions.electron,
     ping: ()=>ipcRenderer.invoke('ping')
 })
+
+contextBridge.exposeInMainWorld('electronAPI', {
+    setTitle: (title)=>ipcRenderer.send('set-title', title)
+})

@@ -17,6 +17,12 @@ const createWindow = () => {
 app.whenReady().then(() => {
     updateElectronApp()
     ipcMain.handle('ping', () => 'pong')
+    ipcMain.on('set-title', (event, title) => {
+        const webContents = event.sender
+        const win = BrowserWindow.fromWebContents(webContents)
+        win.setTitle(title)
+      })
+
     createWindow()
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
