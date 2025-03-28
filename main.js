@@ -1,5 +1,7 @@
 const {app, BrowserWindow, ipcMain} = require('electron')
 const path = require('path')
+const { updateElectronApp } = require('update-electron-app')
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
@@ -13,6 +15,7 @@ const createWindow = () => {
 }
 
 app.whenReady().then(() => {
+    updateElectronApp()
     ipcMain.handle('ping', () => 'pong')
     createWindow()
     app.on('activate', () => {
