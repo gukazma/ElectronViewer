@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, ipcMain, dialog} = require('electron')
 const path = require('path')
 const { updateElectronApp } = require('update-electron-app')
 
@@ -22,7 +22,13 @@ app.whenReady().then(() => {
         const win = BrowserWindow.fromWebContents(webContents)
         win.setTitle(title)
       })
-
+    ipcMain.handle('dialog:openFile', async () => {
+      const {canceled, filePaths} = await dialog.showOpenDialog({})
+      if(!canceled)
+      {
+        return filePaths[0]
+      }
+    })
     createWindow()
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
