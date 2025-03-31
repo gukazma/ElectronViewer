@@ -16,6 +16,13 @@ btnOpenAFile.addEventListener('click', async () => {
   filePathElement.innerText = filePath
 })
 
+const counter = document.getElementById('counter')
+window.electronAPI.onUpdateCounter((value)=>{
+  const oldValue = Number(counter.innerText)
+  const newValue = oldValue + value
+  counter.innerText = newValue
+})
+
 const func = async () => {
   const response = await window.versions.ping()
   console.log(response) // prints out 'pong'
